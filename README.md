@@ -12,7 +12,8 @@ This bash script shows a desktop notification (using "notify-send") about the la
 :thumbsup: If you have all these requisites, this script can be also run by "**crontab**".
 
 ## Installation
-``` INST_DIR="$(pwd)"
+```
+INST_DIR="$(pwd)"
 SCHEDULE="00 10 * * Mon-Fri"
 
 cd "$INST_DIR" \
