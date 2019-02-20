@@ -11,6 +11,16 @@ This bash script shows a desktop notification (using "notify-send") about the la
 
 :thumbsup: If you have all these requisites, this script can be also run by "**crontab**".
 
+## Installation
+```
+INST_DIR="$(pwd)"
+SCHEDULE="00 10 * * Mon-Fri"
+
+cd "$INST_DIR" \
+&& git clone https://github.com/fabricat/veeam-result-notify.git \
+&& (crontab -l | grep -v 'veeam-result-notify'; echo "${SCHEDULE} ${INST_DIR}/veeam-result-notify/veeam-result-notify.sh" ) | crontab -
+```
+
 ### Tested on:
 * Linux Mint 19 Tara + Cinnamon
 * Linux Mint 18.3 Sylvia + Cinnamon
