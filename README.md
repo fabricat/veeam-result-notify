@@ -9,16 +9,19 @@ This bash script shows a desktop notification (using "notify-send") about the la
 * the script must be run by a user in the "veeam" group (needed by "veeamconfig")
 * the "[notify-send](https://ss64.com/bash/notify-send.html)" command must be installed (see "[libnotify-bin](https://packages.debian.org/it/sid/libnotify-bin)" for Debian)
 
-:thumbsup: If you have all these requisites, this script can be also run by "**crontab**".
+:thumbsup: This script can also be used in "**crontab**".
 
 ## Installation
 ```
 INST_DIR="$(pwd)"
 SCHEDULE="00 10 * * Mon-Fri"
 
-cd "$INST_DIR" \
-&& git clone https://github.com/fabricat/veeam-result-notify.git \
-&& (crontab -l | grep -v 'veeam-result-notify'; echo "${SCHEDULE} ${INST_DIR}/veeam-result-notify/veeam-result-notify.sh" ) | crontab -
+cd "$INST_DIR"
+git clone https://github.com/fabricat/veeam-result-notify.git
+
+if [ -n "$SCHEDULE" ]; then
+  (crontab -l | grep -v 'veeam-result-notify'; echo "${SCHEDULE} ${INST_DIR}/veeam-result-notify/veeam-result-notify.sh" ) | crontab -
+fi
 ```
 
 ### Tested on:
