@@ -1,5 +1,11 @@
 #!/bin/bash
-JOB_NAME="BackupJob1"
+#
+# Show desktop notification about last job run of Veeam Agent for Linux
+#
+# Source:  https://github.com/fabricat/veeam-result-notify
+# License: GPL
+# Author:  fabricat
+#
 
 if [ -n "$1" ]; then
 	JOB_NAME="$1"
@@ -23,8 +29,17 @@ if ! (id -nG | grep -qw veeam); then
 	exit 3
 fi
 
+if [ -z "$JOB_NAME" ]; then
+	SESSION_ID="$(veeamconfig session list | grep "^${JOB_NAME} " | tail -1 | awk '{print $3}')"
+else
+	SESSION_ID="$(veeamconfig session list | grep " Backup " | tail -1 | awk '{print $3}')"
+fi
 
-SESSION_ID="$(veeamconfig session list | grep "^${JOB_NAME} " | tail -1 | awk '{print $3}')"
+if [ -z "$SESSION_ID" ]; then
+	notify-send -i dialog-warning "$0" "Backup session not found!"
+	exit 2
+fi
+
 SESSION_INFO="$(veeamconfig session info --id ${SESSION_ID} | tail -6)"
 SESSION_STATE="$(echo "$SESSION_INFO" | grep 'State: ' | awk '{print $2}')"
 NOTIF_TITLE="Veeam last backup result: $SESSION_STATE"
