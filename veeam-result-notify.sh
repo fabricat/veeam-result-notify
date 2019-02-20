@@ -29,7 +29,7 @@ if ! (id -nG | grep -qw veeam); then
 	exit 3
 fi
 
-if [ -z "$JOB_NAME" ]; then
+if [ -n "$JOB_NAME" ]; then
 	SESSION_ID="$(veeamconfig session list | grep "^${JOB_NAME} " | tail -1 | awk '{print $3}')"
 else
 	SESSION_ID="$(veeamconfig session list | grep " Backup " | tail -1 | awk '{print $3}')"
