@@ -7,11 +7,14 @@ This bash script shows a desktop notification (using "notify-send") about the la
 ## Requirements
 * Veeam Agent for Linux **version 3** must be installed and configured
 * the script must be run by a user in the "veeam" group (needed by "veeamconfig")
-* the "[notify-send](https://ss64.com/bash/notify-send.html)" command must be installed (see "[libnotify-bin](https://packages.debian.org/it/sid/libnotify-bin)" for Debian)
+* the "[notify-send](https://ss64.com/bash/notify-send.html)" command must be installed
+  (package "[libnotify-bin](https://packages.debian.org/it/sid/libnotify-bin)" on Debian-based distros)
 
-:thumbsup: This script can also be used in "**crontab**".
+:thumbsup: This script can also be lauched from "**crontab**".
 
 ## Installation
+In the following code, you can change arbitrarily the values of `INST_DIR` and `SCHEDULE`
+ (execute `man 5 crontab` for help on schedule format).
 ```
 INST_DIR="$(pwd)"
 SCHEDULE="00 10 * * Mon-Fri"
